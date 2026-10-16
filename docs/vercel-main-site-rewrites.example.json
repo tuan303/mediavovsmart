@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/media",
+      "destination": "/media/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/media/:path*",
+      "destination": "https://YOUR-VERCEL-PROJECT.vercel.app/media/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/media/:path*",
+      "headers": [
+        {
+          "key": "x-vercel-enable-rewrite-caching",
+          "value": "0"
+        }
+      ]
+    }
+  ]
+}

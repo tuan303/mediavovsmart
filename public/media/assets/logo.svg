@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 54" role="img" aria-label="VOV smart — System integration">
+<g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="1" width="26" height="26" fill="#0f2a4a"/><rect x="28" y="1" width="26" height="26" fill="#0f2a4a"/><rect x="56" y="1" width="26" height="26" fill="#0f2a4a"/>
+<g fill="#fff" font-weight="700" font-size="20" text-anchor="middle"><text x="13" y="21">V</text><text x="41" y="21">O</text><text x="69" y="21">V</text></g>
+<rect x="0.5" y="27.5" width="81" height="21" fill="#fff" stroke="#0f2a4a"/>
+<text x="41" y="44" fill="#0a62c0" font-size="16" font-style="italic" text-anchor="middle">smart</text>
+<text x="94" y="20" fill="#0b1220" font-size="21" font-weight="700" letter-spacing="-0.3">VOV smart</text>
+<text x="94" y="36" fill="#0b1220" font-size="12.5">System integration</text>
+<text x="94" y="49" fill="#475569" font-size="9.5" letter-spacing="0.2">Smart Building • Smart Factory</text>
+</g></svg>

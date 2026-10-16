@@ -1,0 +1,49 @@
+# Add these locations inside the EXISTING HTTPS server block for vovsmart.net.
+# This is a template; it has not been installed on the live server.
+# Replace EVERY YOUR-VERCEL-PROJECT.vercel.app with the verified production host.
+# Keep all existing root, /picture/, TLS and other website configuration.
+
+location = /media {
+    return 308 /media/$is_args$args;
+}
+
+location ^~ /media/ {
+    # No trailing slash or URI: retain /media/... and query parameters upstream.
+    proxy_pass https://YOUR-VERCEL-PROJECT.vercel.app;
+    proxy_http_version 1.1;
+
+    # Vercel routes requests using its own project hostname.
+    proxy_set_header Host YOUR-VERCEL-PROJECT.vercel.app;
+    proxy_ssl_server_name on;
+    proxy_ssl_name YOUR-VERCEL-PROJECT.vercel.app;
+    proxy_ssl_verify on;
+    proxy_ssl_verify_depth 3;
+    # Debian/Ubuntu example. Verify the CA bundle path for this server.
+    proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header Origin $http_origin;
+    proxy_set_header Authorization $http_authorization;
+    proxy_set_header Connection "";
+
+    # Forward requests/bodies as received; do not cache admin or catalog responses.
+    proxy_pass_request_headers on;
+    proxy_pass_request_body on;
+    proxy_cache off;
+    proxy_no_cache 1;
+    proxy_cache_bypass 1;
+    proxy_hide_header Cache-Control;
+    add_header Cache-Control "no-store" always;
+
+    # Keep redirects under the visitor-facing hostname.
+    proxy_redirect https://YOUR-VERCEL-PROJECT.vercel.app/ /;
+    proxy_connect_timeout 15s;
+    proxy_read_timeout 60s;
+}
+
+# If apex/www redirect to one canonical hostname, keep the full $request_uri
+# in the EXISTING redirect, and add the locations above on the final HTTPS host.
+# Do not replace a working redirect or create a new server block blindly.

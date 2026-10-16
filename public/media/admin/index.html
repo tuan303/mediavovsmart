@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0f2a4a">
+  <title>Media management — VOVSMART</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;550;600;650;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#main" data-copy="skip">Skip to content</a>
+  <header class="admin-header">
+    <div class="admin-shell header-content">
+      <a class="admin-brand" href="/media/" aria-label="VOVSMART Media"><img src="../assets/logo.svg" alt="VOV smart — System integration" width="205" height="38"><span>MEDIA</span></a>
+      <div class="header-tools">
+        <div class="language-switch" role="group" data-label="language" aria-label="Display language"><button type="button" data-lang="en" lang="en" aria-pressed="true" aria-label="English">EN</button><span aria-hidden="true">/</span><button type="button" data-lang="vi" lang="vi" aria-pressed="false" aria-label="Tiếng Việt">VI</button></div>
+        <a class="back-link" href="/media/"><span data-copy="back">View website</span><span aria-hidden="true">↗</span></a>
+        <button id="logout" class="subtle-button" type="button" hidden data-copy="logout">Sign out</button>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="admin-shell">
+    <section id="login-panel" class="login-panel" aria-labelledby="login-heading">
+      <div class="login-intro"><span class="eyebrow"><span class="blue-line"></span> VOVSMART / MEDIA</span><h1 id="login-heading" data-copy="welcome">Your stories.<br>Your collection.</h1><p data-copy="loginIntro">A dedicated workspace for the moments that shape the VOVSMART journey.</p><div class="login-rule"></div><span class="login-caption" data-copy="loginCaption">CURATE · CONNECT · SHARE</span></div>
+      <form id="login-form" class="login-card">
+        <span class="login-icon" aria-hidden="true">↗</span><h2 data-copy="loginTitle">Manage the archive</h2><p data-copy="loginDescription">Enter your access key to add, edit and organise photographs.</p>
+        <label for="access-key" data-copy="accessKey">Access key</label><input id="access-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        <p id="login-error" class="form-error" role="alert" hidden></p>
+        <button class="btn btn-blue" id="login-submit" type="submit" data-copy="signIn">Sign in</button>
+        <p class="quiet-note" data-copy="keyNote">Your access key is kept only for this open session.</p>
+      </form>
+    </section>
+    <section id="dashboard" class="dashboard" aria-labelledby="dashboard-title" hidden>
+      <div class="dashboard-heading"><div><span class="eyebrow"><span class="blue-line"></span><span data-copy="workspace">MEDIA WORKSPACE</span></span><h1 id="dashboard-title" data-copy="dashboardTitle">A collection worth sharing.</h1><p data-copy="dashboardDescription">Add an image link, tell its story and place it in the timeline.</p></div><button id="add-media" class="btn btn-blue" type="button"><span aria-hidden="true">＋</span><span data-copy="addMedia">Add media</span></button></div>
+      <div class="collection-summary"><div><strong id="total-count">0</strong><span data-copy="photos">photos in the archive</span></div><p><span class="live-dot" aria-hidden="true"></span><span data-copy="sharedNote">Saved changes appear on the website for everyone.</span></p></div>
+      <div id="dashboard-status" class="status-message" role="status" aria-live="polite" hidden></div>
+      <div id="dashboard-error" class="form-error boxed-error" role="alert" hidden></div>
+      <div id="dashboard-conflict" class="conflict-message" role="alert" hidden><p data-copy="conflict">The collection has changed in another session. Your unsaved changes are still here. Reload the latest version before saving again.</p><button class="btn btn-outline reload-latest" type="button" data-copy="reloadLatest">Reload latest version</button></div>
+      <div class="management-toolbar"><label class="search-control"><span aria-hidden="true">⌕</span><input id="search-media" type="search" data-placeholder="search" data-label="search" placeholder="Search titles, places or filenames…" aria-label="Search titles, places or filenames…"></label><label class="year-control"><span data-copy="filterYear">Year</span><select id="filter-year" data-label="filterYear" aria-label="Year"><option value="all">All years</option></select></label><button id="refresh-media" class="subtle-button" type="button" data-copy="refresh">Refresh</button></div>
+      <div class="list-heading"><span id="result-count" role="status" aria-live="polite"></span><span data-copy="newestFirst">NEWEST FIRST</span></div>
+      <div id="media-list" class="media-list"></div>
+      <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">◇</span><h2 data-copy="emptyTitle">No photographs found</h2><p data-copy="emptyDescription">Try another search or choose a different year.</p></div>
+    </section>
+  </main>
+  <footer class="admin-footer admin-shell"><span>© VOVSMART</span><span data-copy="footer">Media archive · Management</span></footer>
+
+  <dialog id="editor-dialog" class="editor-dialog" aria-labelledby="editor-title">
+    <div class="dialog-header"><div><span class="eyebrow" data-copy="editorEyebrow">THE NEXT CHAPTER</span><h2 id="editor-title">Add media</h2></div><button id="close-editor" class="close-button" type="button" data-label="close" aria-label="Close">×</button></div>
+    <form id="media-form">
+      <div class="editor-layout">
+        <aside class="preview-column"><div class="preview-frame"><img id="image-preview" alt="" hidden><div id="preview-placeholder"><span aria-hidden="true">↗</span><p data-copy="previewPlaceholder">Your image will appear here</p></div></div><p id="preview-status" class="preview-note" role="status" aria-live="polite"></p><p class="quiet-note" data-copy="previewNote">Use a direct image link that anyone can open. The photograph remains hosted at its source.</p></aside>
+        <div class="editor-fields">
+          <div class="field"><label for="image-url" data-copy="imageUrl">Image URL</label><div class="url-row"><input id="image-url" name="src" type="text" inputmode="url" autocomplete="url" placeholder="https://…" required maxlength="2048"><button id="preview-button" class="btn btn-outline" type="button" data-copy="preview">Preview</button></div><small id="url-help" data-copy="urlHelp">Paste a direct HTTPS image URL.</small></div>
+          <div class="field-row"><div class="field"><label for="media-year" data-copy="year">Timeline year</label><input id="media-year" name="year" type="number" min="1900" max="2100" step="1" inputmode="numeric" required><label class="checkbox-label"><input id="no-year" type="checkbox"><span data-copy="noYear">No year · People & Connections</span></label></div><div class="field"><label for="media-category" data-copy="category">Theme</label><select id="media-category" name="category" required></select></div></div>
+          <div class="language-fields"><div class="field-language"><span lang="en">ENGLISH</span><div class="field"><label for="title-en" data-copy="titleEn">Title in English</label><input id="title-en" name="title_en" type="text" required maxlength="240"></div><div class="field"><label for="location-en" data-copy="locationEn">Location in English</label><input id="location-en" name="location_en" type="text" maxlength="180"></div></div><div class="field-language"><span lang="vi">TIẾNG VIỆT</span><div class="field"><label for="title-vi" data-copy="titleVi">Title in Vietnamese</label><input id="title-vi" name="title" type="text" required maxlength="240"></div><div class="field"><label for="location-vi" data-copy="locationVi">Location in Vietnamese</label><input id="location-vi" name="location" type="text" maxlength="180"></div></div></div>
+          <p id="editor-error" class="form-error" role="alert" hidden></p>
+          <div id="editor-conflict" class="conflict-message" role="alert" hidden><p data-copy="conflict">The collection has changed in another session. Your unsaved changes are still here. Reload the latest version before saving again.</p><button class="btn btn-outline reload-latest" type="button" data-copy="reloadLatest">Reload latest version</button></div>
+        </div>
+      </div>
+      <div class="dialog-footer"><p data-copy="saveNote">Saving updates the live collection.</p><div><button id="cancel-editor" class="btn btn-outline" type="button" data-copy="cancel">Cancel</button><button id="save-media" class="btn btn-blue" type="submit" data-copy="save">Save changes</button></div></div>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" class="confirm-dialog" aria-labelledby="delete-title"><div class="confirm-icon" aria-hidden="true">−</div><h2 id="delete-title" data-copy="deleteTitle">Remove this photo?</h2><p id="delete-name" class="delete-name"></p><p data-copy="deleteDescription">It will be removed from the media archive. The original image at its source will stay unchanged.</p><p id="delete-error" class="form-error" role="alert" hidden></p><div class="confirm-actions"><button id="cancel-delete" class="btn btn-outline" type="button" data-copy="cancel">Cancel</button><button id="confirm-delete" class="btn danger-button" type="button" data-copy="delete">Delete</button></div></dialog>
+  <dialog id="reload-dialog" class="confirm-dialog" aria-labelledby="reload-title"><h2 id="reload-title" data-copy="reloadTitle">Reload the collection?</h2><p data-copy="reloadDescription">Any unsaved edits will be discarded and the latest saved version will be loaded.</p><div class="confirm-actions"><button id="cancel-reload" class="btn btn-outline" type="button" data-copy="keepEditing">Keep editing</button><button id="confirm-reload" class="btn btn-blue" type="button" data-copy="reloadDiscard">Reload and discard edits</button></div></dialog>
+  <noscript><p class="admin-shell">JavaScript is required to manage the media archive. / Vui lòng bật JavaScript để quản lý thư viện.</p></noscript>
+</body>
+</html>
