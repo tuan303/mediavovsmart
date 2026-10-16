@@ -10,9 +10,13 @@
     "build": "node scripts/validate.mjs",
     "check": "node scripts/validate.mjs",
     "test": "node --test tests/*.test.mjs",
-    "admin:key": "node scripts/admin-key.mjs"
+    "admin:key": "node scripts/admin-key.mjs",
+    "catalog:init": "node --env-file=.env.local lib/initialize-blob-catalog.mjs"
   },
   "devDependencies": {
     "jsdom": "29.1.1"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.8.2"
   }
 }

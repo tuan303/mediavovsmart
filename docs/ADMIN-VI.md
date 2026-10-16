@@ -26,17 +26,17 @@ Nội dung tiếng Anh được dùng khi người xem ở chế độ EN; nội
 
 Chọn xóa ở đúng mục cần bỏ và xác nhận theo hộp thoại. Thao tác chỉ xóa mục trong danh mục. Tệp ảnh ở `/picture/` hoặc nhà cung cấp ảnh vẫn còn nguyên; các ảnh khác sử dụng cùng link không bị xóa theo.
 
-Mỗi lần lưu được ghi thành commit trong repo. Khi cần phục hồi mục đã xóa, người quản trị kỹ thuật có thể lấy lại mục từ phiên bản trước của `data/catalog.json` trong lịch sử Git.
+Thay đổi được lưu vào kho danh mục dùng chung, không cần sửa mã hoặc triển khai lại website. Ở cấu hình đang dùng, danh mục nằm trong Private Vercel Blob; các lần sửa không tạo commit GitHub. Khi cần phục hồi mục đã xóa, người quản trị kỹ thuật cần bản sao lưu danh mục trước đó. Chưa có nút hoàn tác hoặc lịch sử tự động trong trang quản trị.
 
 ## Nếu không lưu được
 
 | Hiện tượng | Cách xử lý |
 | --- | --- |
-| Chưa cấu hình kho dữ liệu / chỉ đọc | Người quản trị hệ thống cần cài biến GitHub và khóa trên Vercel rồi triển khai lại |
+| Chưa cấu hình kho dữ liệu / chỉ đọc | Người quản trị hệ thống kiểm tra kết nối Private Blob store, danh mục khởi tạo và khóa trên Vercel |
 | Khóa không hợp lệ | Kiểm tra đúng khóa media; nếu khóa vừa đổi cần dùng khóa mới |
 | Lỗi `409` hoặc danh mục đã thay đổi | Có người/tab khác vừa lưu; tải lại danh mục, kiểm tra nội dung mới rồi thực hiện lại thay đổi |
 | Lỗi origin / `403` | Thêm đúng origin đang dùng vào `MEDIA_ALLOWED_ORIGINS`; kiểm tra proxy không bỏ header Origin |
 | Link xem trước không hiện ảnh | Kiểm tra HTTPS, chính tả tên tệp, quyền truy cập và khả năng chống hotlink của máy chủ ảnh |
-| GitHub tạm từ chối / hết hạn mức | Chờ rồi thử lại; người quản trị kiểm tra token, quyền repo và hạn mức API |
+| Kho lưu trữ tạm từ chối hoặc không truy cập được | Chờ rồi thử lại; người quản trị kiểm tra kết nối Blob, quyền truy cập và mức sử dụng |
 
 Không cần bấm lưu nhiều lần khi đang chờ một thao tác. Nếu có lỗi, nội dung chưa được xác nhận lưu thành công không nên được coi là đã xuất hiện cho mọi người xem.
