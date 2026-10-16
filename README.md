@@ -20,6 +20,7 @@ Thư viện ảnh song ngữ English / Tiếng Việt, chạy tại `/media/` tr
 Cài phiên bản Node.js tương thích với `package.json`, rồi chạy tại thư mục dự án:
 
 ```sh
+npm ci
 npm run check
 npm test
 npm run build
@@ -29,7 +30,7 @@ Kiểm tra trong trình duyệt bằng môi trường phát triển có hỗ tr�
 
 ## Đưa lên GitHub và Vercel
 
-1. Đưa mã nguồn cùng `data/catalog.json` lên nhánh `main` của [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Khuyến nghị để repo ở chế độ private; không commit `.env`, khóa quản trị hoặc GitHub token.
+1. Đưa mã nguồn cùng `data/catalog.json` lên nhánh `main` của [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Không commit `.env`, khóa quản trị hoặc GitHub token.
 2. Trong Vercel, chọn **Add New → Project**, import repo vừa tạo. Chọn Framework Preset **Other**; dùng cấu hình build và output trong `vercel.json`.
 3. Thêm các biến bên dưới vào **Settings → Environment Variables**, rồi triển khai lại để bản deploy sử dụng chúng. Nhập secret trực tiếp vào Vercel, không đưa vào mã frontend hay gửi trong hội thoại.
 4. Kiểm tra URL Vercel `/media/`, `/media/admin/` và `/media/api/catalog`. Sau khi bản Vercel hoạt động, thêm rewrite ở dự án website chính theo [hướng dẫn triển khai](docs/DEPLOYMENT-VI.md).

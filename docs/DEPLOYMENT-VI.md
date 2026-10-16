@@ -23,7 +23,7 @@ Trang chủ và thư mục `/picture` tiếp tục được phục vụ theo c�
 
 ## 2. Chuẩn bị repo và dữ liệu
 
-Đưa toàn bộ thư mục dự án lên [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart), khuyến nghị chế độ private. Repo phải chứa `data/catalog.json` trên nhánh được chọn. Danh mục ban đầu có 68 ảnh; nội dung ảnh tiếp tục lấy từ các URL nguồn. Hai tài nguyên hiển thị cục bộ đi kèm trong `public/media/assets/photos/` đã được giữ lại cho định dạng ảnh gốc đặc biệt.
+Đưa toàn bộ thư mục dự án lên [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Repo phải chứa `data/catalog.json` trên nhánh được chọn. Danh mục ban đầu có 68 ảnh; nội dung ảnh tiếp tục lấy từ các URL nguồn. Hai tài nguyên hiển thị cục bộ đi kèm trong `public/media/assets/photos/` đã được giữ lại cho định dạng ảnh gốc đặc biệt.
 
 Tạo fine-grained personal access token trên GitHub, giới hạn vào đúng repo này, cấp **Contents: Read and write**. Không cần quyền Workflows cho ứng dụng. Chọn thời hạn phù hợp và ghi nhớ ngày gia hạn. Nếu repo thuộc tổ chức, có thể cần quản trị viên tổ chức duyệt token. Thao tác lưu cập nhật một tệp bằng SHA của phiên bản trước theo [GitHub Contents API](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents).
 
@@ -51,7 +51,7 @@ Vercel Git integration có thể tạo deployment mới khi có commit; thay đ�
 
 ## 4. Kiểm tra trên Vercel trước khi nối tên miền
 
-Chạy `npm run check`, `npm test`, `npm run build` trong repo. Sau khi Vercel báo deployment thành công, dùng hostname ổn định của **dự án Production** làm upstream, không dùng URL của một commit cụ thể hoặc Preview ngẫu nhiên.
+Chạy `npm ci`, `npm run check`, `npm test`, `npm run build` trong repo. Sau khi Vercel báo deployment thành công, dùng hostname ổn định của **dự án Production** làm upstream, không dùng URL của một commit cụ thể hoặc Preview ngẫu nhiên.
 
 Kiểm tra các địa chỉ sau trên URL Vercel thực tế:
 
