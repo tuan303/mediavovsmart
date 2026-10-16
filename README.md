@@ -4,6 +4,8 @@ Thư viện ảnh song ngữ English / Tiếng Việt, chạy tại `/media/` tr
 
 Mã nguồn dùng repo [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart); website chính nằm ở [tuan303/vov-web](https://github.com/tuan303/vov-web). Dự án Vercel media đã được tạo và kết nối GitHub trong team `tuan303-5380s-projects`. Kho **Private Vercel Blob** `vovsmart-media-catalog` đã được liên kết để lưu danh mục đang sử dụng. Việc nối `vovsmart.net/media/` cần triển khai rewrite trong repo website chính; tệp mẫu không tự thay đổi website.
 
+Hostname Production đã xác nhận: [mediavovsmart.vercel.app/media/](https://mediavovsmart.vercel.app/media/). Địa chỉ chính thức sau khi áp dụng rewrite là [www.vovsmart.net/media/](https://www.vovsmart.net/media/); tên miền không có `www` tiếp tục dùng chuyển hướng hiện tại. Danh mục Blob đã được khởi tạo 68 ảnh; khóa quản trị chỉ cấu hình cho môi trường Production.
+
 ## Mô hình lưu trữ
 
 - `public/media/`: giao diện và tài nguyên tĩnh; đường dẫn đã đặt dưới `/media/`.
@@ -41,7 +43,7 @@ Kiểm tra trong trình duyệt bằng môi trường phát triển có hỗ tr�
 | `BLOB_READ_WRITE_TOKEN` | Vercel tự thêm khi liên kết Private Blob store; chỉ dùng phía máy chủ |
 | `BLOB_STORE_ID` | Tùy chọn khi dùng cơ chế OIDC của store đã kết nối thay cho token đọc/ghi |
 | `MEDIA_ADMIN_KEY` | Khóa ngẫu nhiên ít nhất 32 ký tự, tạo bằng `npm run admin:key` |
-| `MEDIA_ALLOWED_ORIGINS` | `https://vovsmart.net,https://www.vovsmart.net` và origin Vercel thực tế nếu cần dùng trang quản trị tại đó; không thêm đường dẫn `/media` |
+| `MEDIA_ALLOWED_ORIGINS` | `https://vovsmart.net,https://www.vovsmart.net,https://mediavovsmart.vercel.app`; không thêm đường dẫn `/media` |
 
 `MEDIA_ADMIN_KEY` là khóa riêng dành cho người quản trị, khác token Blob. Không cần tạo GitHub personal access token cho cấu hình đang triển khai. Khi chưa cấu hình kho lưu trữ, thư viện chỉ đọc danh mục đi kèm mã nguồn và thao tác ghi bị khóa. Khi đã cấu hình Blob nhưng tệp không tồn tại hoặc không đọc được, API báo lỗi và không tự khởi tạo lại dữ liệu. Hướng dẫn dịch vụ: [Vercel Blob SDK](https://vercel.com/docs/vercel-blob/using-blob-sdk), [Vercel for GitHub](https://vercel.com/docs/git/vercel-for-github), [Vercel Environment Variables](https://vercel.com/docs/environment-variables).
 

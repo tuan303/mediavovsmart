@@ -1,6 +1,6 @@
 # Triển khai VOVSMART Media tại vovsmart.net/media
 
-Tài liệu này áp dụng cho bộ mã nguồn media tại repo do người dùng cung cấp: [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Website chính nằm tại repo [tuan303/vov-web](https://github.com/tuan303/vov-web). `YOUR-VERCEL-PROJECT` trong mẫu cấu hình là chỗ trống phải thay bằng hostname Vercel media thực tế sau khi triển khai.
+Tài liệu này áp dụng cho bộ mã nguồn media tại repo do người dùng cung cấp: [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Website chính nằm tại repo [tuan303/vov-web](https://github.com/tuan303/vov-web). Hostname Production media đã xác nhận là [mediavovsmart.vercel.app](https://mediavovsmart.vercel.app/media/); mẫu rewrite dùng đúng hostname này. Địa chỉ đích sau khi nối tuyến là `https://www.vovsmart.net/media/`.
 
 ## 1. Đường đi của yêu cầu
 
@@ -8,7 +8,7 @@ Tài liệu này áp dụng cho bộ mã nguồn media tại repo do người d�
 Người xem → https://vovsmart.net/media/
           → www.vovsmart.net/media/ theo chuyển hướng domain hiện tại
           → dự án Vercel website chính: rewrite riêng /media/
-          → https://YOUR-VERCEL-PROJECT.vercel.app/media/
+          → https://mediavovsmart.vercel.app/media/
           → giao diện và Vercel Functions
           → Private Vercel Blob: media/catalog.json
 
@@ -27,7 +27,7 @@ Trang chủ và thư mục `/picture` tiếp tục được phục vụ theo c�
 
 Đưa toàn bộ thư mục dự án lên [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). `data/catalog.json` trong repo là danh mục khởi tạo 68 ảnh. Hai tài nguyên hiển thị cục bộ trong `public/media/assets/photos/` được giữ lại cho định dạng ảnh gốc đặc biệt; các ảnh khác tiếp tục lấy từ URL nguồn.
 
-Kho danh mục đang dùng là **Private Vercel Blob**, tên `vovsmart-media-catalog`, đã liên kết với dự án media trong team `tuan303-5380s-projects`. Vercel thêm `BLOB_READ_WRITE_TOKEN` vào môi trường đã liên kết. Tệp danh mục ở đường dẫn cố định `media/catalog.json`; seed một lần bằng `data/catalog.json` trước khi mở quản trị, dùng thao tác private upload không cho ghi đè. Không ghi đè tệp này bằng bản seed khi triển khai lại, vì sẽ mất các cập nhật sau đó.
+Kho danh mục đang dùng là **Private Vercel Blob**, tên `vovsmart-media-catalog`, đã liên kết với dự án media trong team `tuan303-5380s-projects`. Vercel thêm `BLOB_READ_WRITE_TOKEN` vào môi trường đã liên kết. Tệp danh mục ở đường dẫn cố định `media/catalog.json` đã được seed 68 ảnh từ `data/catalog.json`. Không ghi đè tệp này bằng bản seed khi triển khai lại, vì sẽ mất các cập nhật sau đó.
 
 Với một kho mới chưa có danh mục, kỹ thuật viên chuẩn bị `.env.local` chứa thông tin kết nối phía máy chủ rồi chạy `npm run catalog:init`. Script chỉ khởi tạo tệp private `media/catalog.json`, không ghi đè đối tượng đã có và không in secret. `.env.local` không được commit hoặc đưa vào gói bàn giao. Không chạy lại bước khởi tạo để “đồng bộ” những lần sửa ảnh.
 
@@ -42,7 +42,7 @@ Thêm biến môi trường cho **Production**:
 ```text
 BLOB_READ_WRITE_TOKEN=<Vercel tự thêm khi kết nối Private Blob store>
 MEDIA_ADMIN_KEY=<khóa ngẫu nhiên được tạo riêng>
-MEDIA_ALLOWED_ORIGINS=https://vovsmart.net,https://www.vovsmart.net,https://YOUR-VERCEL-PROJECT.vercel.app
+MEDIA_ALLOWED_ORIGINS=https://vovsmart.net,https://www.vovsmart.net,https://mediavovsmart.vercel.app
 ```
 
 Các dòng trên là mẫu, không phải secret có thể dùng. Adapter hỗ trợ cả `BLOB_STORE_ID` với xác thực OIDC tự động của Vercel khi không dùng token đọc/ghi. Tạo khóa quản trị trên máy của người quản trị bằng `npm run admin:key`, lưu vào trình quản lý mật khẩu và trường biến môi trường Vercel. Không nhập token Blob vào màn hình quản trị media. Không cần GitHub personal access token cho phương án Blob. Khi thay đổi biến môi trường, tạo deployment mới để áp dụng. [Tài liệu Vercel về biến môi trường](https://vercel.com/docs/environment-variables).
@@ -72,7 +72,7 @@ Nếu deployment đang bật Vercel Authentication hoặc Deployment Protection,
 
 Mở repo [tuan303/vov-web](https://github.com/tuan303/vov-web), đối chiếu dự án Vercel đang gắn `www.vovsmart.net` trước khi phát hành. Đây là **dự án website chính**, khác với repo media `tuan303/mediavovsmart`.
 
-Trong `vercel.json` của `tuan303/vov-web`, bổ sung các phần tử `redirects`, `rewrites` và `headers` từ [vercel-main-site-rewrites.example.json](vercel-main-site-rewrites.example.json) vào các mảng hiện tại. Redirect chính xác `/media` sang `/media/` để đường dẫn tài nguyên tương đối được phân giải đúng; rewrite `/media/:path*` chuyển các request còn lại lên ứng dụng media. Thay hostname mẫu bằng hostname Production media đã kiểm tra. Đặt các quy tắc riêng này trước catch-all nếu có.
+Trong `vercel.json` của `tuan303/vov-web`, bổ sung các phần tử `redirects`, `rewrites` và `headers` từ [vercel-main-site-rewrites.example.json](vercel-main-site-rewrites.example.json) vào các mảng hiện tại. Redirect chính xác `/media` sang `/media/` để đường dẫn tài nguyên tương đối được phân giải đúng; rewrite `/media/:path*` chuyển các request còn lại lên `https://mediavovsmart.vercel.app/media/:path*`. Đặt các quy tắc riêng này trước catch-all nếu có.
 
 Giữ nguyên rewrite `/picture` đến `document.vovsmart.net`, redirect hostname về `www.vovsmart.net`, `cleanUrls`, mọi header và các quy tắc hiện hữu. Không thêm cấu hình `trailingSlash` toàn cục để xử lý riêng `/media`, vì có thể làm thay đổi URL của site chính. Không chép mẫu đè lên toàn bộ `vercel.json` của website chính hoặc vào `vercel.json` của ứng dụng media.
 
@@ -84,7 +84,7 @@ Giữ chuyển hướng apex → `www` đang hoạt động và bảo toàn đư
 
 ## Phương án phụ: điểm nhận request là Nginx
 
-Chỉ dùng phần này nếu người quản trị xác nhận tuyến request thực tế cần chỉnh tại Nginx. Sao lưu cấu hình virtual host, thêm [nginx-media.conf.example](nginx-media.conf.example) vào server block HTTPS đang phục vụ domain và thay hostname mẫu. Giữ location `/` và `/picture/` hiện có.
+Chỉ dùng phần này nếu người quản trị xác nhận tuyến request thực tế cần chỉnh tại Nginx. Sao lưu cấu hình virtual host, thêm [nginx-media.conf.example](nginx-media.conf.example) vào server block HTTPS đang phục vụ domain; upstream trong mẫu là `mediavovsmart.vercel.app`. Giữ location `/` và `/picture/` hiện có.
 
 Mẫu giữ nguyên `/media/...`; `proxy_pass` không có URI/dấu `/` sau hostname. Xác nhận đường dẫn CA bundle của máy chủ: mẫu dùng Debian/Ubuntu `/etc/ssl/certs/ca-certificates.crt`, còn RHEL thường dùng `/etc/pki/tls/certs/ca-bundle.crt`. Giữ xác thực TLS và SNI. [Tài liệu Nginx proxy module](https://nginx.org/en/docs/http/ngx_http_proxy_module.html).
 

@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/media/:path*",
-      "destination": "https://YOUR-VERCEL-PROJECT.vercel.app/media/:path*"
+      "destination": "https://mediavovsmart.vercel.app/media/:path*"
     }
   ],
   "headers": [

@@ -1,6 +1,6 @@
 # Add these locations inside the EXISTING HTTPS server block for vovsmart.net.
 # This is a template; it has not been installed on the live server.
-# Replace EVERY YOUR-VERCEL-PROJECT.vercel.app with the verified production host.
+# Production upstream is mediavovsmart.vercel.app; verify before installation.
 # Keep all existing root, /picture/, TLS and other website configuration.
 
 location = /media {
@@ -9,13 +9,13 @@ location = /media {
 
 location ^~ /media/ {
     # No trailing slash or URI: retain /media/... and query parameters upstream.
-    proxy_pass https://YOUR-VERCEL-PROJECT.vercel.app;
+    proxy_pass https://mediavovsmart.vercel.app;
     proxy_http_version 1.1;
 
     # Vercel routes requests using its own project hostname.
-    proxy_set_header Host YOUR-VERCEL-PROJECT.vercel.app;
+    proxy_set_header Host mediavovsmart.vercel.app;
     proxy_ssl_server_name on;
-    proxy_ssl_name YOUR-VERCEL-PROJECT.vercel.app;
+    proxy_ssl_name mediavovsmart.vercel.app;
     proxy_ssl_verify on;
     proxy_ssl_verify_depth 3;
     # Debian/Ubuntu example. Verify the CA bundle path for this server.
@@ -39,7 +39,7 @@ location ^~ /media/ {
     add_header Cache-Control "no-store" always;
 
     # Keep redirects under the visitor-facing hostname.
-    proxy_redirect https://YOUR-VERCEL-PROJECT.vercel.app/ /;
+    proxy_redirect https://mediavovsmart.vercel.app/ /;
     proxy_connect_timeout 15s;
     proxy_read_timeout 60s;
 }

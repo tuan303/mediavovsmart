@@ -53,6 +53,7 @@ test('Blob takes precedence and reads private canonical catalog freshly without 
   assert.equal(blob.calls[0].path, 'media/catalog.json');
   assert.equal(blob.calls[0].options.access, 'private');
   assert.equal(blob.calls[0].options.useCache, false);
+  assert.equal(blob.calls[0].options.headers['accept-encoding'], 'identity');
   assert.equal(blob.calls[0].options.token, token);
   assert.ok(blob.calls[0].options.abortSignal instanceof AbortSignal);
 });
@@ -90,6 +91,52 @@ test('Blob authentication rejects unauthorized changes before accessing the stor
   const result = await invoke(handler, { method: 'POST', body: { entry: newEntry, revision }, headers: { authorization: 'Bearer wrong' } });
   assert.equal(result.status, 401);
   assert.equal(blob.calls.length, 0);
+});
+
+test('identity reads avoid compressed weak ETags and keep body/revision/ifMatch consistent', async () => {
+  const etag = '"691f64f099afb555696ad5c319282023"';
+  const serialized = JSON.stringify(catalog);
+  const calls = [];
+  const blobClient = {
+    BlobPreconditionFailedError,
+    async get(path, options) {
+      calls.push('get');
+      const identity = options.headers?.['accept-encoding'] === 'identity';
+      return {
+        statusCode: 200, stream: new Response(serialized).body,
+        blob: { etag: identity ? etag : `W/${etag}`, size: identity ? Buffer.byteLength(serialized) : 0 }
+      };
+    },
+    async put(path, content, options) {
+      calls.push('put');
+      assert.equal(options.ifMatch, etag, 'The exact strong ETag from the body response protects the write');
+      return { etag: '"next-strong-etag"' };
+    },
+    async head() { assert.fail('A separate metadata request could race with the body read'); }
+  };
+  const result = await invoke(createCatalogHandler({ env, blobClient }));
+  assert.equal(result.status, 200);
+  assert.equal(result.body.revision, etag);
+  assert.deepEqual(result.body.entries, catalog);
+  const edited = await invoke(createAdminHandler({ env, blobClient }), { method: 'PATCH', body: { id: catalog[0].id, revision: result.body.revision, entry: { title_en: 'Verified revision' } } });
+  assert.equal(edited.status, 200);
+  assert.deepEqual(calls, ['get', 'get', 'put']);
+});
+
+test('an unexpectedly weak compressed ETag still fails closed instead of guessing a strong validator', async () => {
+  const blobClient = {
+    async get(path, options) {
+      assert.equal(options.headers['accept-encoding'], 'identity');
+      return {
+        statusCode: 200, stream: new Response(JSON.stringify(catalog)).body,
+        blob: { etag: 'W/"691f64f099afb555696ad5c319282023"', size: 0 }
+      };
+    },
+    async put() { assert.fail('No write may follow an unverifiable revision'); }
+  };
+  const result = await invoke(createAdminHandler({ env, blobClient }), { method: 'PATCH', body: { id: catalog[0].id, revision: '"691f64f099afb555696ad5c319282023"', entry: { title_en: 'Updated' } } });
+  assert.equal(result.status, 502);
+  assert.equal(result.body.error.code, 'upstream_error');
 });
 
 test('Blob stale revision and conditional-write races both fail with 409 without data loss', async () => {
