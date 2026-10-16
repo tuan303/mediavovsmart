@@ -2,9 +2,9 @@
 
 Thư viện ảnh song ngữ English / Tiếng Việt, chạy tại `/media/` trên Vercel. English là mặc định; toàn bộ media hiển thị ngay, có bộ lọc năm và lĩnh vực. Trang `/media/admin/` cho phép chèn link ảnh HTTPS, sửa thông tin, xóa ảnh khỏi thư viện và gán năm.
 
-Mã nguồn dùng repo [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart); website chính nằm ở [tuan303/vov-web](https://github.com/tuan303/vov-web). Dự án Vercel media đã được tạo và kết nối GitHub trong team `tuan303-5380s-projects`. Kho **Private Vercel Blob** `vovsmart-media-catalog` đã được liên kết để lưu danh mục đang sử dụng. Việc nối `vovsmart.net/media/` cần triển khai rewrite trong repo website chính; tệp mẫu không tự thay đổi website.
+Mã nguồn dùng repo [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart); website chính nằm ở [tuan303/vov-web](https://github.com/tuan303/vov-web). Dự án Vercel media đã kết nối GitHub trong team `tuan303-5380s-projects`. Kho **Private Vercel Blob** `vovsmart-media-catalog` lưu danh mục đang sử dụng. Rewrite trong website chính đã được triển khai để phục vụ `/media/`.
 
-Hostname Production đã xác nhận: [mediavovsmart.vercel.app/media/](https://mediavovsmart.vercel.app/media/). Địa chỉ chính thức sau khi áp dụng rewrite là [www.vovsmart.net/media/](https://www.vovsmart.net/media/); tên miền không có `www` tiếp tục dùng chuyển hướng hiện tại. Danh mục Blob đã được khởi tạo 68 ảnh; khóa quản trị chỉ cấu hình cho môi trường Production.
+Website đang hoạt động tại [www.vovsmart.net/media/](https://www.vovsmart.net/media/), quản trị tại [www.vovsmart.net/media/admin/](https://www.vovsmart.net/media/admin/). Nhập `https://vovsmart.net/media` sẽ chuyển tới đúng thư viện. Hostname Production Vercel là [mediavovsmart.vercel.app/media/](https://mediavovsmart.vercel.app/media/). Danh mục Blob đã được khởi tạo 68 ảnh; khóa quản trị chỉ cấu hình cho môi trường Production. Đã xác nhận HTTP 200 cho trang media/quản trị và thao tác thêm, sửa, xóa qua API trên domain chính.
 
 ## Mô hình lưu trữ
 
@@ -31,12 +31,12 @@ npm run build
 
 Kiểm tra trong trình duyệt bằng môi trường phát triển có hỗ trợ Vercel Functions; mở trực tiếp tệp HTML không chạy được API quản trị.
 
-## Đưa lên GitHub và Vercel
+## Cấu hình triển khai và bảo trì
 
 1. Đưa mã nguồn cùng `data/catalog.json` lên nhánh `main` của [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Không commit `.env`, khóa quản trị hoặc token lưu trữ.
 2. Dùng dự án media đã liên kết GitHub trong team `tuan303-5380s-projects`. Framework Preset là **Other**; dùng cấu hình build và output trong `vercel.json`. Nếu cài một bản sao mới, import repo và liên kết một Blob store **Private** riêng.
 3. Kiểm tra các biến bên dưới trong **Settings → Environment Variables**, rồi triển khai lại nếu thay đổi. Khởi tạo `media/catalog.json` từ danh mục đi kèm một lần trước khi bật quản trị. Không ghi đè dữ liệu Blob đã có khi deploy hoặc chạy lại quy trình cài đặt.
-4. Kiểm tra URL Vercel `/media/`, `/media/admin/` và `/media/api/catalog`. Sau khi bản Vercel hoạt động, thêm rewrite ở dự án website chính theo [hướng dẫn triển khai](docs/DEPLOYMENT-VI.md).
+4. Khi thay đổi cấu hình, kiểm tra cả URL Vercel và domain chính tại `/media/`, `/media/admin/`, `/media/api/catalog`. Rewrite của website chính đã triển khai; xem [hướng dẫn](docs/DEPLOYMENT-VI.md) để duy trì các quy tắc này.
 
 | Biến | Giá trị cần cấu hình |
 | --- | --- |
@@ -49,9 +49,9 @@ Kiểm tra trong trình duyệt bằng môi trường phát triển có hỗ tr�
 
 ## Dùng địa chỉ vovsmart.net/media
 
-Kiểm tra HTTP ngày 16/10/2026 cho thấy `www.vovsmart.net` được phục vụ qua Vercel; tên miền gốc chuyển tới `www`. Website chính dùng repo [tuan303/vov-web](https://github.com/tuan303/vov-web), với cấu hình hiện có chuyển hostname `vov-web-eight.vercel.app` về `www.vovsmart.net` và chuyển `/picture` tới `document.vovsmart.net`. Bổ sung external rewrite cho `/media/` vào `vercel.json` của repo này, giữ nguyên các rewrite, header và redirect đang dùng.
+Website chính dùng repo [tuan303/vov-web](https://github.com/tuan303/vov-web), với cấu hình chuyển hostname `vov-web-eight.vercel.app` về `www.vovsmart.net` và chuyển `/picture` tới `document.vovsmart.net`. Cấu hình đã bổ sung redirect `/media` → `/media/`, rewrite riêng cho `/media/` và `/media/admin/`, rồi wildcard `/media/:path*` tới ứng dụng media. Các cấu hình sẵn có được giữ nguyên.
 
-DNS chỉ phân giải tên miền, không phân luồng theo `/media`. Giữ cấu hình tên miền, trang chủ và `/picture`; bổ sung [mẫu rewrite](docs/vercel-main-site-rewrites.example.json), không thay thế cấu hình hiện có. Đọc [DEPLOYMENT-VI.md](docs/DEPLOYMENT-VI.md). Vercel hỗ trợ [rewrite tới ứng dụng khác trong khi giữ URL trình duyệt](https://vercel.com/docs/routing/rewrites#rewrites-to-external-origins).
+DNS chỉ phân giải tên miền, không phân luồng theo `/media`. Không cần đổi DNS để vận hành cấu hình này. [Mẫu rewrite](docs/vercel-main-site-rewrites.example.json) ghi lại các quy tắc media cần giữ; xem [DEPLOYMENT-VI.md](docs/DEPLOYMENT-VI.md). Vercel hỗ trợ [rewrite tới ứng dụng khác trong khi giữ URL trình duyệt](https://vercel.com/docs/routing/rewrites#rewrites-to-external-origins).
 
 ## Cập nhật media
 

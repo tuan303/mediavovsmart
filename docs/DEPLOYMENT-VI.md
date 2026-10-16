@@ -1,6 +1,8 @@
 # Triển khai VOVSMART Media tại vovsmart.net/media
 
-Tài liệu này áp dụng cho bộ mã nguồn media tại repo do người dùng cung cấp: [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Website chính nằm tại repo [tuan303/vov-web](https://github.com/tuan303/vov-web). Hostname Production media đã xác nhận là [mediavovsmart.vercel.app](https://mediavovsmart.vercel.app/media/); mẫu rewrite dùng đúng hostname này. Địa chỉ đích sau khi nối tuyến là `https://www.vovsmart.net/media/`.
+Tài liệu này áp dụng cho bộ mã nguồn media tại [tuan303/mediavovsmart](https://github.com/tuan303/mediavovsmart). Website chính nằm tại [tuan303/vov-web](https://github.com/tuan303/vov-web). Website đã triển khai tại [www.vovsmart.net/media/](https://www.vovsmart.net/media/), quản trị tại [www.vovsmart.net/media/admin/](https://www.vovsmart.net/media/admin/). Hostname Production media là [mediavovsmart.vercel.app](https://mediavovsmart.vercel.app/media/).
+
+Đã xác nhận ngày 16/10/2026: `https://vovsmart.net/media` chuyển tới `https://www.vovsmart.net/media/` với HTTP 200; trang quản trị cũng trả HTTP 200. Thao tác thêm, sửa và xóa qua API domain chính đã vượt qua kiểm tra. Các bước sau ghi lại cấu hình để bảo trì hoặc cài một bản sao; không cần tạo lại dự án hoặc seed lại dữ liệu hiện có.
 
 ## 1. Đường đi của yêu cầu
 
@@ -17,7 +19,7 @@ Mã nguồn → GitHub: tuan303/mediavovsmart
 Ảnh gốc → link HTTPS được lưu trong danh mục, ví dụ /picture ở máy chủ hiện tại
 ```
 
-Kiểm tra HTTP ngày 16/10/2026 trả về `server: Vercel`, `x-vercel-id` và `x-vercel-cache` cho `https://www.vovsmart.net/`. Tên miền gốc chuyển sang `www`. Repo website chính đã xác định là [tuan303/vov-web](https://github.com/tuan303/vov-web); `vercel.json` hiện có redirect từ `vov-web-eight.vercel.app` về `www.vovsmart.net` và rewrite `/picture` tới `document.vovsmart.net`. Phương án triển khai là thêm external rewrite riêng cho `/media/` ở dự án này.
+Website chính dùng Vercel và chuyển tên miền gốc sang `www`. `vercel.json` trong [tuan303/vov-web](https://github.com/tuan303/vov-web) giữ redirect từ `vov-web-eight.vercel.app` về `www.vovsmart.net`, rewrite `/picture` tới `document.vovsmart.net` và đã bổ sung các quy tắc media.
 
 Trang chủ và thư mục `/picture` tiếp tục được phục vụ theo cấu hình hiện có. DNS hoạt động theo hostname nên không thể tạo một bản ghi DNS riêng cho `vovsmart.net/media`. Việc chuyển từng đường dẫn phù hợp với [hướng dẫn Incremental Migration của Vercel](https://vercel.com/docs/incremental-migration#keep-your-domain-on-the-legacy-server).
 
@@ -68,11 +70,18 @@ Thử bộ lọc năm, chuyển EN / VI và mở ảnh. Trên kho dữ liệu th
 
 Nếu deployment đang bật Vercel Authentication hoặc Deployment Protection, người xem qua proxy cũng có thể bị chặn. Chọn thiết lập truy cập Production phù hợp với yêu cầu công khai của website trong Vercel; không nhúng token bỏ qua bảo vệ vào JavaScript hoặc mã nguồn được commit.
 
-## 5. Thêm rewrite trong dự án Vercel của website chính
+## 5. Rewrite trong dự án Vercel của website chính
 
 Mở repo [tuan303/vov-web](https://github.com/tuan303/vov-web), đối chiếu dự án Vercel đang gắn `www.vovsmart.net` trước khi phát hành. Đây là **dự án website chính**, khác với repo media `tuan303/mediavovsmart`.
 
-Trong `vercel.json` của `tuan303/vov-web`, bổ sung các phần tử `redirects`, `rewrites` và `headers` từ [vercel-main-site-rewrites.example.json](vercel-main-site-rewrites.example.json) vào các mảng hiện tại. Redirect chính xác `/media` sang `/media/` để đường dẫn tài nguyên tương đối được phân giải đúng; rewrite `/media/:path*` chuyển các request còn lại lên `https://mediavovsmart.vercel.app/media/:path*`. Đặt các quy tắc riêng này trước catch-all nếu có.
+Trong `vercel.json` của `tuan303/vov-web`, các phần tử `redirects`, `rewrites` và `headers` cho media đã được thêm vào các mảng hiện tại. [vercel-main-site-rewrites.example.json](vercel-main-site-rewrites.example.json) ghi lại phần bổ sung này. Giữ thứ tự:
+
+1. Redirect chính xác `/media` sang `/media/`.
+2. Rewrite chính xác `/media/` sang `https://mediavovsmart.vercel.app/media/`.
+3. Rewrite chính xác `/media/admin/` sang `https://mediavovsmart.vercel.app/media/admin/`.
+4. Rewrite `/media/:path*` sang `https://mediavovsmart.vercel.app/media/:path*` cho tài nguyên và API.
+
+Hai rewrite có dấu `/` ở cuối phải được giữ trước wildcard. Chỉ dùng wildcard trong cấu hình website chính đã khiến các trang thư mục trả 404, dù API vẫn chạy. Không thay chúng bằng một wildcard duy nhất khi rút gọn cấu hình.
 
 Giữ nguyên rewrite `/picture` đến `document.vovsmart.net`, redirect hostname về `www.vovsmart.net`, `cleanUrls`, mọi header và các quy tắc hiện hữu. Không thêm cấu hình `trailingSlash` toàn cục để xử lý riêng `/media`, vì có thể làm thay đổi URL của site chính. Không chép mẫu đè lên toàn bộ `vercel.json` của website chính hoặc vào `vercel.json` của ứng dụng media.
 

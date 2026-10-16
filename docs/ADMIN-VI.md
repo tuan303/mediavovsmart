@@ -1,6 +1,6 @@
 # Hướng dẫn quản trị media
 
-Sau khi triển khai và nối tên miền, trang quản trị nằm tại `https://vovsmart.net/media/admin/`. Trước khi nối tên miền, dùng cùng đường dẫn trên URL Vercel thực tế của dự án.
+Trang quản trị đang hoạt động tại [www.vovsmart.net/media/admin/](https://www.vovsmart.net/media/admin/). Có thể dùng địa chỉ [mediavovsmart.vercel.app/media/admin/](https://mediavovsmart.vercel.app/media/admin/) trên Vercel khi cần kiểm tra ứng dụng trực tiếp.
 
 ## Đăng nhập
 
