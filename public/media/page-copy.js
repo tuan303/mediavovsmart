@@ -91,10 +91,6 @@ export const PAGE_COPY = {
     "en": "Behind the moments <span>↗</span>",
     "vi": "Câu chuyện phía sau <span>↗</span>"
   },
-  "hero.scroll": {
-    "en": "Scroll to the photo library",
-    "vi": "Cuộn xuống thư viện"
-  },
   "hero.credit": {
     "en": "Technology illustration · VOVSMART",
     "vi": "Hình ảnh nhận diện công nghệ · VOVSMART"
@@ -322,13 +318,5 @@ export const PAGE_COPY = {
   "dialog.archive": {
     "en": "/ MEDIA ARCHIVE",
     "vi": "/ THƯ VIỆN MEDIA"
-  },
-  "hero.founded": {
-    "en": "VOVSMART ESTABLISHED",
-    "vi": "NGÀY THÀNH LẬP VOVSMART"
-  },
-  "hero.experience": {
-    "en": "Earlier photographs document our leaders’ professional experience before VOVSMART was established.",
-    "vi": "Ảnh trước thời điểm này ghi lại kinh nghiệm công tác của lãnh đạo tại các đơn vị trước đây."
   }
 };
