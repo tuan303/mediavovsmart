@@ -24,8 +24,8 @@ test('public gallery shows all media, supports both languages, and respects edit
   window.HTMLDialogElement.prototype.showModal = function () { this.open = true; };
   window.HTMLDialogElement.prototype.close = function () { this.open = false; this.dispatchEvent(new window.Event('close')); };
   try {
-    const { initLanguage, setLanguage } = await import('../public/media/i18n.js?v=vercel-cms-20261016');
-    const { initGallery } = await import('../public/media/gallery.js?v=vercel-cms-20261016');
+    const { initLanguage, setLanguage } = await import('../public/media/i18n.js?v=founding-20261016');
+    const { initGallery } = await import('../public/media/gallery.js?v=founding-20261016');
     initLanguage();
     const gallery = await initGallery();
     assert.equal(loads, 1);

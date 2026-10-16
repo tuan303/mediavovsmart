@@ -1,5 +1,5 @@
-import { initLanguage, pageText } from './i18n.js?v=vercel-cms-20261016';
-import { initGallery } from './gallery.js?v=vercel-cms-20261016';
+import { initLanguage, pageText } from './i18n.js?v=founding-20261016';
+import { initGallery } from './gallery.js?v=founding-20261016';
 
 initLanguage();
 

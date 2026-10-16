@@ -1,5 +1,5 @@
-import { t, getLanguage } from './i18n.js?v=vercel-cms-20261016';
-import { GALLERY_EN } from './gallery-translations.js?v=vercel-cms-20261016';
+import { t, getLanguage } from './i18n.js?v=founding-20261016';
+import { GALLERY_EN } from './gallery-translations.js?v=founding-20261016';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const CATALOG_URL = new URL('./api/catalog', import.meta.url);

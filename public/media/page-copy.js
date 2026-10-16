@@ -1,28 +1,31 @@
 export const PAGE_COPY = {
-  "nav.manage": {"en":"Manage media","vi":"Quản lý media"},
+  "nav.manage": {
+    "en": "Manage media",
+    "vi": "Quản lý media"
+  },
   "page.title": {
     "en": "VOVSMART Media — Moments & Stories",
     "vi": "VOVSMART Media — Dấu ấn & Hành trình"
   },
   "page.description": {
-    "en": "Explore the VOVSMART media archive: people, professional milestones and photographs from 2006 to 2026.",
-    "vi": "Không gian truyền thông VOVSMART. Khám phá dấu ấn dự án, hành trình công tác của đội ngũ lãnh đạo và thư viện hình ảnh theo thời gian."
+    "en": "VOVSMART activities and the leadership team’s earlier professional experience. VOVSMART was established on 27 December 2025.",
+    "vi": "Hoạt động VOVSMART và kinh nghiệm công tác trước đây của đội ngũ lãnh đạo. VOVSMART được thành lập ngày 27/12/2025."
   },
   "page.ogTitle": {
-    "en": "VOVSMART Media — Our journey. In every frame.",
-    "vi": "VOVSMART Media — Dấu ấn thực tiễn. Kết nối tương lai."
+    "en": "VOVSMART Media — Our team’s journey",
+    "vi": "VOVSMART Media — Hành trình của đội ngũ"
   },
   "page.ogDescription": {
-    "en": "A visual journey through people, places and connections. VOVSMART Media, 2006–2026.",
-    "vi": "Hành trình qua những công trình, con người và kết nối. Thư viện hình ảnh VOVSMART 2006–2026."
+    "en": "Explore VOVSMART activities and photographs from our leaders’ earlier roles. VOVSMART was established on 27 December 2025.",
+    "vi": "Khám phá hoạt động VOVSMART và tư liệu công tác của lãnh đạo tại các đơn vị trước đây. VOVSMART thành lập ngày 27/12/2025."
   },
   "skip": {
     "en": "Skip to the photo library",
     "vi": "Đến thư viện hình ảnh"
   },
   "brand.home": {
-    "en": "VOVSMART Media — Home",
-    "vi": "VOVSMART Media — Trang đầu"
+    "en": "VOVSMART — Company homepage",
+    "vi": "VOVSMART — Trang chủ công ty"
   },
   "nav.main": {
     "en": "Main navigation",
@@ -73,12 +76,12 @@ export const PAGE_COPY = {
     "vi": "Minh họa công nghệ chính thức của VOVSMART: tòa nhà thông minh, nhà máy thông minh và chuyển đổi số"
   },
   "hero.title": {
-    "en": "Our journey.<br><span>In every frame.</span>",
-    "vi": "Hành trình của chúng tôi.<br><span>Qua từng khung hình.</span>"
+    "en": "Our team’s journey.<br><span>In every frame.</span>",
+    "vi": "Hành trình của đội ngũ.<br><span>Qua từng khung hình.</span>"
   },
   "hero.description": {
-    "en": "Places. People. Connections.<br>Explore the VOVSMART team’s journey through the moments that bring it to life.",
-    "vi": "Những điểm đến. Những con người. Những kết nối.<br>Khám phá hành trình của đội ngũ VOVSMART qua những khoảnh khắc đáng nhớ."
+    "en": "Professional experience from our leaders’ earlier roles,<br>alongside activities and connections at VOVSMART.",
+    "vi": "Hành trình công tác của lãnh đạo tại các đơn vị trước đây,<br>cùng những hoạt động và kết nối tại VOVSMART."
   },
   "hero.browse": {
     "en": "Explore the archive <svg class=\"icon\"><use href=\"#i-arrow\"></use></svg>",
@@ -87,10 +90,6 @@ export const PAGE_COPY = {
   "hero.story": {
     "en": "Behind the moments <span>↗</span>",
     "vi": "Câu chuyện phía sau <span>↗</span>"
-  },
-  "hero.years": {
-    "en": "OUR TEAM’S PROFESSIONAL JOURNEY",
-    "vi": "DẤU MỐC CÔNG TÁC CỦA ĐỘI NGŨ"
   },
   "hero.scroll": {
     "en": "Scroll to the photo library",
@@ -165,8 +164,8 @@ export const PAGE_COPY = {
     "vi": "Xóa bộ lọc"
   },
   "gallery.source": {
-    "en": "Original photographs from the VOVSMART archive. Years follow filenames or editorial updates; the leadership archive includes experience gained in previous roles.",
-    "vi": "Hình ảnh thực tế từ kho tư liệu VOVSMART. Năm được lấy từ tên tệp hoặc cập nhật bởi quản trị viên; tư liệu công tác của lãnh đạo bao gồm kinh nghiệm tại các đơn vị trước đây."
+    "en": "VOVSMART was established on 27 December 2025. Earlier photographs document our leaders’ experience at previous organizations. Years follow filenames or editorial updates.",
+    "vi": "VOVSMART thành lập ngày 27/12/2025. Ảnh trước thời điểm này ghi lại kinh nghiệm của lãnh đạo tại các đơn vị trước đây. Năm hiển thị theo tên tệp hoặc cập nhật của quản trị viên."
   },
   "story.eyebrow": {
     "en": "<span class=\"blue-line\"></span> PEOPLE & EXPERIENCES",
@@ -177,8 +176,8 @@ export const PAGE_COPY = {
     "vi": "Những con người.<br>Những điểm đến.<br><em>Những câu chuyện.</em>"
   },
   "story.description": {
-    "en": "Each milestone offers a glimpse into our leaders’ professional journeys — from industrial automation to infrastructure and smart systems.",
-    "vi": "Mỗi dấu mốc là một góc nhìn về hành trình công tác của đội ngũ lãnh đạo — từ tự động hóa công nghiệp đến hạ tầng và các hệ thống thông minh."
+    "en": "This archive brings together our leadership team’s experience in earlier roles and VOVSMART activities since its founding on 27 December 2025.",
+    "vi": "Thư viện kết nối kinh nghiệm công tác của đội ngũ lãnh đạo tại các đơn vị trước đây với hoạt động VOVSMART từ khi thành lập ngày 27/12/2025."
   },
   "story.company": {
     "en": "About VOVSMART <svg class=\"icon\"><use href=\"#i-diagonal\"></use></svg>",
@@ -229,8 +228,8 @@ export const PAGE_COPY = {
     "vi": "36 Nguyễn Đổng Chi, Từ Liêm, Hà Nội"
   },
   "footer.home": {
-    "en": "VOVSMART Media — Back to top",
-    "vi": "VOVSMART Media — về đầu trang"
+    "en": "VOVSMART — Company homepage",
+    "vi": "VOVSMART — Trang chủ công ty"
   },
   "footer.company": {
     "en": "VOV Smart Technology Joint Stock Company<br><span>Connecting OT and IT for a smarter future.</span>",
@@ -323,5 +322,13 @@ export const PAGE_COPY = {
   "dialog.archive": {
     "en": "/ MEDIA ARCHIVE",
     "vi": "/ THƯ VIỆN MEDIA"
+  },
+  "hero.founded": {
+    "en": "VOVSMART ESTABLISHED",
+    "vi": "NGÀY THÀNH LẬP VOVSMART"
+  },
+  "hero.experience": {
+    "en": "Earlier photographs document our leaders’ professional experience before VOVSMART was established.",
+    "vi": "Ảnh trước thời điểm này ghi lại kinh nghiệm công tác của lãnh đạo tại các đơn vị trước đây."
   }
 };

@@ -1,5 +1,5 @@
-import { PAGE_COPY } from './page-copy.js?v=vercel-cms-20261016';
-import { GALLERY_EN } from './gallery-translations.js?v=vercel-cms-20261016';
+import { PAGE_COPY } from './page-copy.js?v=founding-20261016';
+import { GALLERY_EN } from './gallery-translations.js?v=founding-20261016';
 
 const STORAGE_KEY = 'vovsmart-display-language';
 let language = 'en';
